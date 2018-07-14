@@ -45,7 +45,7 @@ public class Main extends Application  implements EventHandler<ActionEvent> {
         labelEnterYourName = new Label("Username");
 
         // creating a textbox for user to enter its name
-        textFieldUserName = new TextField();
+        textFieldUserName = new TextField("canberk2007");
 
         // creating text area for informing user about the progress
         textAreaShowProgress = new TextArea("*Program started\n");
@@ -95,6 +95,7 @@ public class Main extends Application  implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         if(event.getSource() == button){
             RiotConnector riotConnector = new RiotConnector(textAreaShowProgress, textFieldUserName.getText());
+            riotConnector.getData();
         }
     }
 }
