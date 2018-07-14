@@ -70,17 +70,19 @@ public class RiotConnector {
     }
 
     private void getStatisticsByGameId(List<Integer> gameIds){
-        for(int i = 0; i < 1; ++i){
+        for(int i = 0; i < gameIds.size(); ++i){
             try{
                 String request_url =
-                        "https://tr1.api.riotgames.com/lol/match/v3/matches/" + gameIds.get(0) + API_KEY;
+                        "https://tr1.api.riotgames.com/lol/match/v3/matches/" + gameIds.get(i) + API_KEY;
                 URL url = new URL(request_url);
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
                 String s_name = br.readLine();
                 JSONObject jAns = new JSONObject(s_name);
 
-                getSummonerIdInMatch(jAns.getJSONArray("participantIdentities"));
+                int participantId = getSummonerIdInMatch(jAns.getJSONArray("participantIdentities"));
+                int championId = getChampionIdInMAtchByParticipantId(jAns, participantId);
 
+                Thread.sleep(1000);
             } catch(Exception ex){
                 showProgress.setText(showProgress.getText() + "*Http get request error - getStatisticsByGameId\n");
             }
@@ -88,18 +90,24 @@ public class RiotConnector {
     }
 
     private int getSummonerIdInMatch(JSONArray jArrTmp){
-        String jStr = jArrTmp.toString();
-        System.out.println(jStr);
-
+        int participantId = 0;
         for(int i = 0; i < jArrTmp.length(); ++i){
+
             JSONObject obj = jArrTmp.getJSONObject(i);
-            //JSONObject details = obj.getJSONObject("participantId");
-            System.out.println(obj.getInt("participantId"));
-//            JSONObject obj = jArrTmp.getJSONObject(i);
-//            JSONObject details = obj.getJSONObject("player");
-//            int idd = details.getInt("summonerId");
-//            System.out.println(idd);
+            participantId = obj.getInt("participantId");
+
+            JSONObject details = obj.getJSONObject("player");
+            String s_name = details.getString("summonerName");
+
+            if(s_name.equals(username)){
+                System.out.println("Player id for this match is " + participantId);
+            }
         }
+        return participantId;
+    }
+
+    private int getChampionIdInMAtchByParticipantId(JSONObject obj, int participantId){
+
         return 0;
     }
 }

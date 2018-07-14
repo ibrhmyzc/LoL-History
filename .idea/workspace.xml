@@ -73,8 +73,8 @@
       <file leaf-file-name="RiotConnector.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/RiotConnector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="96" column="60" selection-start-line="96" selection-start-column="60" selection-end-line="96" selection-end-column="60" />
+            <state relative-caret-position="409">
+              <caret line="82" column="75" selection-start-line="82" selection-start-column="75" selection-end-line="82" selection-end-column="75" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1763#1772#0" expanded="true" />
@@ -308,12 +308,12 @@
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1531504576380" duration="151000" />
       <workItem from="1531504898535" duration="43000" />
-      <workItem from="1531557854337" duration="17931000" />
+      <workItem from="1531557854337" duration="19002000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19427000" />
+    <option name="totallyTimeSpent" value="20498000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -363,6 +363,11 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -500,8 +505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/RiotConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="96" column="60" selection-start-line="96" selection-start-column="60" selection-end-line="96" selection-end-column="60" />
+        <state relative-caret-position="409">
+          <caret line="82" column="75" selection-start-line="82" selection-start-column="75" selection-end-line="82" selection-end-column="75" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1763#1772#0" expanded="true" />
