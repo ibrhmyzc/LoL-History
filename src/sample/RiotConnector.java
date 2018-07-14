@@ -6,10 +6,7 @@ import org.json.*;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +77,11 @@ public class RiotConnector {
                 JSONObject jAns = new JSONObject(s_name);
 
                 int participantId = getSummonerIdInMatch(jAns.getJSONArray("participantIdentities"));
-                int championId = getChampionIdInMAtchByParticipantId(jAns, participantId);
+                int damage = getDamageByParticipantId(jAns.getJSONArray("participants"), participantId);
+                int championId = getChampionIdByParticipantId(jAns.getJSONArray("participants"), participantId);
+                String championName = getChampionNameByChampionId(championId);
 
+                System.out.println("Damage=" + damage + " Champ=" + championName);
                 Thread.sleep(1000);
             } catch(Exception ex){
                 showProgress.setText(showProgress.getText() + "*Http get request error - getStatisticsByGameId\n");
@@ -90,24 +90,49 @@ public class RiotConnector {
     }
 
     private int getSummonerIdInMatch(JSONArray jArrTmp){
-        int participantId = 0;
+        int participantId = -1;
         for(int i = 0; i < jArrTmp.length(); ++i){
-
             JSONObject obj = jArrTmp.getJSONObject(i);
-            participantId = obj.getInt("participantId");
-
             JSONObject details = obj.getJSONObject("player");
             String s_name = details.getString("summonerName");
 
             if(s_name.equals(username)){
-                System.out.println("Player id for this match is " + participantId);
+                participantId = obj.getInt("participantId");
+                break;
             }
         }
         return participantId;
     }
 
-    private int getChampionIdInMAtchByParticipantId(JSONObject obj, int participantId){
+    private int getDamageByParticipantId(JSONArray jArrTmp, int participantId){
+        int damage = -1;
+        for(int i = 0; i < jArrTmp.length(); ++i){
+            JSONObject obj = jArrTmp.getJSONObject(i);
+            JSONObject details = obj.getJSONObject("stats");
 
-        return 0;
+            if(participantId == details.getInt("participantId")){
+                damage = details.getInt("totalDamageDealtToChampions");
+                break;
+            }
+        }
+        return damage;
+    }
+
+    private int getChampionIdByParticipantId(JSONArray jArrTmp, int participantId){
+        int championId = -1;
+        for(int i = 0; i < jArrTmp.length(); ++i){
+            JSONObject obj = jArrTmp.getJSONObject(i);
+            JSONObject details = obj.getJSONObject("stats");
+
+            if(participantId == details.getInt("participantId")){
+                championId = obj.getInt("championId");
+                break;
+            }
+        }
+        return championId;
+    }
+
+    private String getChampionNameByChampionId(int championId){
+
     }
 }
