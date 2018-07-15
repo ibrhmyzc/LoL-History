@@ -13,15 +13,19 @@ import java.util.List;
 
 public class RiotConnector {
     private String API_KEY = "?api_key=RGAPI-7fea4d2c-0db2-4b70-b72d-86da11057b2c";
-    List<String> matchHistory = null;
-    TextArea showProgress = null;
+    private List<Integer> matchIdList = null;
+    private List<Integer> damageList = null;
+    private List<String> champNameList = null;
+    private TextArea showProgress = null;
     private String username = null;
     private int userId;
 
     public RiotConnector(TextArea showProgress, String username){
         this.showProgress = showProgress;
         this.username = username;
-        matchHistory = new ArrayList<String>();
+        matchIdList = new ArrayList<Integer>();
+        damageList = new ArrayList<Integer>();
+        champNameList = new ArrayList<String>();
     }
 
     public void getData(){
@@ -46,7 +50,6 @@ public class RiotConnector {
     }
 
     private void getMatchHistoryByAccountId(int accountId){
-        List<Integer> gameIds = new ArrayList<Integer>();
         String request_url =
                 "https://tr1.api.riotgames.com/lol/match/v3/matchlists/by-account/" + accountId + API_KEY;
         try{
@@ -57,10 +60,10 @@ public class RiotConnector {
             JSONObject jAns = new JSONObject(s_name);
 
             JSONArray jArr = jAns.getJSONArray("matches");
-            for(int i = 0; i < jArr.length(); ++i){
-                gameIds.add(jArr.getJSONObject(i).getInt("gameId"));
+            for(int i = 0; i < jArr.length() && i < 20; ++i){
+                matchIdList.add(jArr.getJSONObject(i).getInt("gameId"));
             }
-            getStatisticsByGameId(gameIds);
+            getStatisticsByGameId(matchIdList);
         }catch(Exception ex){
             showProgress.setText(showProgress.getText() + "*Http get request error - getMatchHistoryByAccountId\n");
         }
@@ -77,12 +80,16 @@ public class RiotConnector {
                 JSONObject jAns = new JSONObject(s_name);
 
                 int participantId = getSummonerIdInMatch(jAns.getJSONArray("participantIdentities"));
+
                 int damage = getDamageByParticipantId(jAns.getJSONArray("participants"), participantId);
+                damageList.add(damage);
+
                 int championId = getChampionIdByParticipantId(jAns.getJSONArray("participants"), participantId);
                 String championName = getChampionNameByChampionId(championId);
+                champNameList.add(championName);
 
-                System.out.println("Damage=" + damage + " Champ=" + championName);
-                Thread.sleep(1000);
+                showProgress.setText(showProgress.getText() + gameIds.get(i) + " " + championName + " " + damageList + "\n");
+                Thread.sleep(250);
             } catch(Exception ex){
                 showProgress.setText(showProgress.getText() + "*Http get request error - getStatisticsByGameId\n");
             }
@@ -269,5 +276,17 @@ public class RiotConnector {
             case 81: return "Ezreal";
             default: return "Unknown";
         }
+    }
+
+    public List<Integer> getMatchId(){
+        return matchIdList;
+    }
+
+    public List<Integer> getDamageList(){
+        return damageList;
+    }
+
+    public List<String> getChampNameList(){
+        return champNameList;
     }
 }

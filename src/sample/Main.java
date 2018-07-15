@@ -16,6 +16,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main extends Application  implements EventHandler<ActionEvent> {
     Button button = null;
     TextField textFieldUserName = null;
@@ -96,6 +99,13 @@ public class Main extends Application  implements EventHandler<ActionEvent> {
         if(event.getSource() == button){
             RiotConnector riotConnector = new RiotConnector(textAreaShowProgress, textFieldUserName.getText());
             riotConnector.getData();
+
+
+            List<Integer> matchIdList = riotConnector.getMatchId();
+            List<Integer> damageList = riotConnector.getDamageList();
+            List<String> champNameList = riotConnector.getChampNameList();
+            MongoDbConnector mongoDbConnector = new MongoDbConnector(matchIdList, damageList, champNameList);
+            mongoDbConnector.sendData();
         }
     }
 }
