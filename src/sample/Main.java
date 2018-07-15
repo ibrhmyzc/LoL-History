@@ -100,12 +100,12 @@ public class Main extends Application  implements EventHandler<ActionEvent> {
             RiotConnector riotConnector = new RiotConnector(textAreaShowProgress, textFieldUserName.getText());
             riotConnector.getData();
 
-
             List<Integer> matchIdList = riotConnector.getMatchId();
             List<Integer> damageList = riotConnector.getDamageList();
             List<String> champNameList = riotConnector.getChampNameList();
             MongoDbConnector mongoDbConnector = new MongoDbConnector(matchIdList, damageList, champNameList);
             mongoDbConnector.sendData();
+            MyPDFObject my = new MyPDFObject(matchIdList, damageList, champNameList);
         }
     }
 }
