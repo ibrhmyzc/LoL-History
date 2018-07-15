@@ -1,6 +1,7 @@
 package sample;
 
 
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import org.json.*;
 
@@ -12,17 +13,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RiotConnector {
-    private String API_KEY = "?api_key=RGAPI-7fea4d2c-0db2-4b70-b72d-86da11057b2c";
+    private String API_KEY = "?api_key=RGAPI-1b5ec6b8-cd5a-4b81-badb-05771cc91851";
     private List<Integer> matchIdList = null;
     private List<Integer> damageList = null;
     private List<String> champNameList = null;
     private TextArea showProgress = null;
+    private ProgressBar progressBarPercentage = null;
     private String username = null;
     private int userId;
 
-    public RiotConnector(TextArea showProgress, String username){
+    public RiotConnector(TextArea showProgress, String username, ProgressBar progressBarPercentage){
         this.showProgress = showProgress;
         this.username = username;
+        this.progressBarPercentage = progressBarPercentage;
         matchIdList = new ArrayList<Integer>();
         damageList = new ArrayList<Integer>();
         champNameList = new ArrayList<String>();
@@ -89,7 +92,8 @@ public class RiotConnector {
                 champNameList.add(championName);
 
                 showProgress.setText(showProgress.getText() + gameIds.get(i) + " " + championName + " " + damage + "\n");
-                Thread.sleep(250);
+                progressBarPercentage.setProgress(i * 0.05);
+                Thread.sleep((long)(Math.random() * 750) + 250);
             } catch(Exception ex){
                 showProgress.setText(showProgress.getText() + "*Http get request error - getStatisticsByGameId\n");
             }
