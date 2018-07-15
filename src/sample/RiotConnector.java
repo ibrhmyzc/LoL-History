@@ -88,7 +88,7 @@ public class RiotConnector {
                 String championName = getChampionNameByChampionId(championId);
                 champNameList.add(championName);
 
-                showProgress.setText(showProgress.getText() + gameIds.get(i) + " " + championName + " " + damageList + "\n");
+                showProgress.setText(showProgress.getText() + gameIds.get(i) + " " + championName + " " + damage + "\n");
                 Thread.sleep(250);
             } catch(Exception ex){
                 showProgress.setText(showProgress.getText() + "*Http get request error - getStatisticsByGameId\n");
