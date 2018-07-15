@@ -10,7 +10,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/json-20180130.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/sample/itextpdf-5.5.9.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/mongo-java-driver-3.8.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/sample/json-20180130.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/itextpdf-5.5.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/sample/mongo-java-driver-3.8.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
